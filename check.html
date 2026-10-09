@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>فحص النت</title>
+<style>
+body{margin:0;background:#F7F3EA;color:#0F1D3A;font:20px/1.7 Tahoma,"Segoe UI",sans-serif;padding:16px}
+@media (prefers-color-scheme:dark){body{background:#0B1530;color:#EFE7D3}}
+h1{font-size:1.5rem;margin:.2rem 0 .6rem}
+.r{display:flex;justify-content:space-between;gap:.6rem;padding:.7rem .9rem;margin:.5rem 0;border-radius:14px;background:rgba(127,127,127,.12);font-weight:700}
+.ok{color:#1E7046}.no{color:#B42318}.wait{opacity:.6}
+@media (prefers-color-scheme:dark){.ok{color:#72D49C}.no{color:#FF8A80}}
+p{font-size:1rem;opacity:.8}
+</style>
+</head>
+<body>
+<h1>فحص: الموبايل ده بيوصل لإيه؟</h1>
+<p>استنى 10 ثواني، وصوّر الشاشة وابعتها.</p>
+<div id="out"></div>
+<p id="net"></p>
+<script>
+// بيجرّب يوصل لكل خدمة. «✓» = وصل، «✗» = النت ده مش بيوصلها.
+var T = [
+  ["GitHub (المرجع)", "https://api.github.com/"],
+  ["العدّاد (workers.dev)", "https://mustadrak-stats.mustadrak.workers.dev/"],
+  ["لينك التجربة (workers.dev)", "https://mustadrak-study-preview.mustadrak.workers.dev/"],
+  ["Cloudflare Pages (pages.dev)", "https://cloudflare.pages.dev/"],
+  ["جوجل (script.google.com)", "https://script.google.com/"],
+  ["Supabase (supabase.co)", "https://supabase.co/"]
+];
+var out = document.getElementById("out");
+T.forEach(function (t) {
+  var row = document.createElement("div"); row.className = "r wait";
+  row.innerHTML = "<span>" + t[0] + "</span><span>…</span>"; out.appendChild(row);
+  var t0 = Date.now(), done = false;
+  function show(ok) { if (done) return; done = true; row.className = "r " + (ok ? "ok" : "no"); row.lastChild.textContent = ok ? "✓ " + ((Date.now() - t0) / 1000).toFixed(1) + " ث" : "✗"; }
+  setTimeout(function () { show(false); }, 9000);
+  fetch(t[1] + "?x=" + Date.now(), { mode: "no-cors", cache: "no-store" }).then(function () { show(true); }, function () { show(false); });
+});
+var c = navigator.connection;
+document.getElementById("net").textContent = "النوع: " + (c && c.effectiveType ? c.effectiveType : "مش معروف") + " · " + navigator.userAgent.replace(/\(.*?\)/, "").slice(0, 60);
+</script>
+</body>
+</html>
