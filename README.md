@@ -1,0 +1,4 @@
+# group-a-study-hub
+الموقع اتنقل: https://nooh-ibrahim.github.io/mustadrak/
+
+المستودع ده بيحوّل اللينك القديم للجديد بس.
