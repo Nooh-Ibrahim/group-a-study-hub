@@ -9,7 +9,7 @@
 // اللينك القديم: بيحوّل لنفس الصفحة على /mustadrak-study/
 (function () {
   var p = location.pathname.replace(/^\/group-a-study-hub\/?/, "/mustadrak-study/");
-  if (!/^\/mustadrak\//.test(p)) p = "/mustadrak-study/";
+  if (!/^\/mustadrak-study\//.test(p)) p = "/mustadrak-study/";
   location.replace(p + location.search + location.hash);
 })();
 </script>
