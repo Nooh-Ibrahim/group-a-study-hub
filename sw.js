@@ -10,7 +10,7 @@ self.addEventListener("activate", (e) => {
     }
     await self.registration.unregister();
     for (const client of await self.clients.matchAll({ type: "window" })) {
-      client.navigate(client.url.replace("/group-a-study-hub/", "/mustadrak/"));
+      client.navigate(client.url.replace("/group-a-study-hub/", "/mustadrak-study/"));
     }
   })());
 });
